@@ -63,5 +63,29 @@ st.subheader('Search by Symbol')
 symbol_search = st.text_input('Enter Symbol (e.g., AAPL):').upper()
 
 if symbol_search:
-    result = df[df['
+    result = df[df['Symbol'] == symbol_search]
+    if not result.empty:
+        st.write(result)
+    else:
+        st.warning('Symbol not found.')
 
+# Quick Stats
+st.subheader('Quick Stats')
+st.metric('Total Companies', len(df))
+st.metric('Companies After Filter', len(filtered_df))
+
+# Download Filtered Data
+st.subheader('Download Filtered Data')
+
+@st.cache_data
+def convert_df_to_csv(df):
+    return df.to_csv(index=False).encode('utf-8')
+
+downloadable_csv = convert_df_to_csv(filtered_df)
+
+st.download_button(
+    label='Download CSV',
+    data=downloadable_csv,
+    file_name='filtered_sp500.csv',
+    mime='text/csv'
+)
