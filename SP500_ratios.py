@@ -28,8 +28,13 @@ per_max_value = df['PER'].max()
 if pd.isna(per_min_value) or pd.isna(per_max_value):
     per_min_value, per_max_value = 0.0, 200.0  # Default values if data is missing
 
-
-
+# PER Range (slider)
+per_min, per_max = st.sidebar.slider(
+    'Select PER range (from data)', 
+    min_value=float(per_min_value), 
+    max_value=float(per_max_value), 
+    value=(float(per_min_value), float(per_max_value))
+)
 
 # Manual PER filter (optional)
 st.sidebar.subheader('Manual PER Filter (0-200)')
@@ -84,3 +89,4 @@ st.download_button(
     file_name='filtered_sp500.csv',
     mime='text/csv'
 )
+
