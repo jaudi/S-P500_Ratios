@@ -25,6 +25,8 @@ recs = df['REC'].dropna().unique()
 selected_recs = st.sidebar.multiselect('Select Recommendation(s):', recs, default=recs)
 
 # Filter by PER range
+df = load_data()
+df['PER'] = pd.to_numeric(df['PER'], errors='coerce')
 per_min, per_max = st.sidebar.slider('Select PER range:', 
                                      float(df['PER'].min()), 
                                      float(df['PER'].max()), 
