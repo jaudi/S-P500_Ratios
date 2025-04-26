@@ -26,12 +26,10 @@ selected_recs = st.sidebar.multiselect('Select Recommendation(s):', recs, defaul
 
 # Filter by PER range
 df = load_data()
-df['PER'] = pd.to_numeric(df['PER'], errors='coerce')
-per_min, per_max = st.sidebar.slider('Select PER range:', 
-                                     float(df['PER'].min()), 
-                                     float(df['PER'].max()), 
-                                     (float(df['PER'].min()), float(df['PER'].max())))
+st.sidebar.subheader('Manual PER Filter')
 
+manual_per_min = st.sidebar.number_input('PER Minimum:', min_value=0.0, max_value=200.0, value=0.0)
+manual_per_max = st.sidebar.number_input('PER Maximum:', min_value=0.0, max_value=200.0, value=200.0)
 # Apply filters
 filtered_df = df[
     (df['Sector'].isin(selected_sector)) &
