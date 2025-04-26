@@ -36,7 +36,8 @@ filtered_df = df[
 # --- Main Page ---
 
 # Title
-st.title('S&P500 Company Explorer')
+st.title('S&P500 Ratios')
+st.caption('Data source: Yahoo Finance. Tables updated weekly.')
 
 # Display filtered data
 st.subheader('Filtered Companies')
