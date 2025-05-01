@@ -4,7 +4,7 @@ import pandas as pd
 # --- Load the data ---
 @st.cache_data
 def load_data():
-    df = pd.read_csv('S&P500.csv')
+    df = pd.read_csv('SP500.csv')
     df['PER'] = pd.to_numeric(df['PER'], errors='coerce')  # Ensure PER is numeric
     return df
 
