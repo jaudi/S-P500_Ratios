@@ -3,7 +3,7 @@ name: Weekly S&P 500 Update
 on:
   schedule:
     # At 14:00 UTC every Thursday
-    - cron: '10 18 * * 4'
+    - cron: '10 21 * * 4'
 
 jobs:
   update-sp500:
@@ -19,7 +19,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.x'
+          python-version: 3.1.2
 
       - name: Install Python dependencies
         run: |
