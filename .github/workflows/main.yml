@@ -33,4 +33,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: sp500-csv
-          path: S&P500.csv
+          path: SP500.csv
