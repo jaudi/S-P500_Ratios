@@ -3,6 +3,7 @@ import requests
 import yfinance as yf
 import time
 from numba import njit
+import lxml
 
 # Get the list of S&P 500 companies from Wikipedia
 url = 'https://en.wikipedia.org/wiki/List_of_S%26P_500_companies'
