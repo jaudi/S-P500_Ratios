@@ -2,8 +2,8 @@ name: Weekly S&P 500 Update
 
 on:
   schedule:
-    # At 17:15 UTC every Saturday
-    - cron: '45 19 * * 6'
+    # At 19:45 UTC every Saturday
+    - cron: '45 20 * * 6'
 
 jobs:
   update-sp500:
@@ -13,38 +13,39 @@ jobs:
       TZ: Europe/London
 
     steps:
-      # 1) Check out the repo with full history + write access
       - name: Check out repository
         uses: actions/checkout@v4
         with:
-          persist-credentials: true
           fetch-depth: 0
 
-      # 2) Set up Python
       - name: Set up Python 3.11
         uses: actions/setup-python@v4
         with:
           python-version: 3.11
 
-      # 3) Install your dependencies
       - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
           pip install pandas requests yfinance numba lxml
 
-      # 4) Run your scraper
       - name: Run S&P 500 update script
         run: python SP500.py
 
-      # 5) Commit and push updated CSV
-      - name: Commit and push updated SP500.csv
+      - name: Commit updated SP500.csv to new branch
         uses: EndBug/add-and-commit@v9
         with:
           author_name: github-actions
           author_email: github-actions@github.com
           message: "chore: update SP500.csv [skip ci]"
           add: SP500.csv
+          new_branch: update-sp500-${{ github.run_number }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: main
-          file_pattern: SP500.csv
-          commit_message: "chore: update SP500.csv [skip ci]"
+
+      - name: Create pull request to main
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: update-sp500-${{ github.run_number }}
+          title: "Weekly S&P 500 Update"
+          body: "Automated update of SP500.csv"
+          base: main
