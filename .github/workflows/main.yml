@@ -3,7 +3,7 @@ name: Weekly S&P 500 Update
 on:
   schedule:
     # At 21:11 UTC every Thursday
-    - cron: '52 16 * * 6'
+    - cron: '55 16 * * 6'
 
 jobs:
   update-sp500:
